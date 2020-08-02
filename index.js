@@ -9,6 +9,10 @@ app.set('view engine','ejs')
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.get('/', (req, res) => {
+    res.send('<h1>Exchange Rates - Home</h1>')
+})
+
 app.get('/exchange-rates-bcb/:date', async(req, res) => {
     let date = req.params.date
     let currencies = await apiBCB.todasCotacoes(date)
