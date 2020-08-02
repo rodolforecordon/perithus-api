@@ -13,11 +13,17 @@ app.get('/', (req, res) => {
     res.send('<h1>Exchange Rates - Home</h1>')
 })
 
-app.get('/exchange-rates-bcb/:date', async(req, res) => {
-    let date = req.params.date
-    let currencies = await apiBCB.todasCotacoes(date)
+app.get('/currency-codes-bcb', async(req, res) => {
+    let currencies = await apiBCB.moedasBCB()
     currencies = JSON.stringify(currencies)
     res.render('currencies', { currencies })
+})
+
+app.get('/exchange-rates-bcb/:date', async(req, res) => {
+    let date = req.params.date
+    let exchangeRates = await apiBCB.todasCotacoes(date)
+    exchangeRates = JSON.stringify(exchangeRates)
+    res.render('exchange-rates', { exchangeRates })
 })
 
 app.listen(port, err => err ? console.error(err) : console.log(`listening on port ${port}`))
